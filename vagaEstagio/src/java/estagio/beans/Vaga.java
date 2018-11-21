@@ -17,7 +17,6 @@ public class Vaga {
         String title, city, state, zipcode, hirer, description;
         float salary;
         Categoria category;
-        List<Requisito> requirements;
         int id;
     
     public int getId() {
@@ -91,15 +90,5 @@ public class Vaga {
     public void setCategory(Categoria category) {
         this.category = category;
     }
-
-    public List<Requisito> getRequirements() {
-        return requirements;
-    }
-
-    public void setRequirements(List<Requisito> requirements) {
-        this.requirements = requirements;
-    }
-        
-        
-    
+            
 }

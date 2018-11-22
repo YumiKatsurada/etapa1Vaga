@@ -29,6 +29,7 @@ public class VagaRequisitoDAO {
             + " (vaga, requisito)"
             + " values (?,?)";
     
+    //dada o idVaga, faz a busca
     private final static String LISTAR_VAGASREQ_SQL = "select"
             + " r.title as reqTitle"
             + " from vagarequisito vr inner join vaga v on v.idVaga = vr.vaga, vagarequisito vr inner join requisito r on r.idRequisito = vr.requisito"

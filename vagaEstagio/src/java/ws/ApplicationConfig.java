@@ -29,7 +29,8 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(ws.VagaWS.class);
+        resources.add(estagio.dao.CategoriaDAO.class);
+        resources.add(estagio.dao.VagaDAO.class);
     }
     
 }

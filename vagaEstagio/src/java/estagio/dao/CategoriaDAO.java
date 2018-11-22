@@ -7,17 +7,23 @@ package estagio.dao;
 
 import estagio.beans.Categoria;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.sql.DataSource;
 import javax.naming.NamingException;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author yumi
  */
+@Path("categoria")
 public class CategoriaDAO {
     private final static String CRIAR_CATEGORIA_SQL = "insert into categoria"
             + " (title)"
@@ -27,17 +33,12 @@ public class CategoriaDAO {
     private final static String BUSCAR_CATEGORIA_SQL = "select"
             + " idCategoria, title"
             + " from categoria"
-            + " where title=?";
+            ;
     
-    DataSource dataSource;
-
-
-    public CategoriaDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    
     
     public Categoria gravarCategoria(Categoria c) throws SQLException, NamingException {
-        try (Connection con = dataSource.getConnection();
+        try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/estagio", "yumi", "yumi");
                 PreparedStatement ps = con.prepareStatement(CRIAR_CATEGORIA_SQL, Statement.RETURN_GENERATED_KEYS);) {
             ps.setString(1, c.getTitle());
             ps.execute();
@@ -50,11 +51,13 @@ public class CategoriaDAO {
         return c;
     }
 
-
-    public Categoria buscarCategoria(String t) throws SQLException, NamingException {
-        try (Connection con = dataSource.getConnection();
+    @GET
+    @Path("/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Categoria buscarCategoria() throws SQLException, NamingException {
+        try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/estagio", "yumi", "yumi");
                 PreparedStatement ps = con.prepareStatement(BUSCAR_CATEGORIA_SQL)) {
-            ps.setString(1, t);
+            //ps.setString(1, t);
 
 
             try (ResultSet rs = ps.executeQuery()) {

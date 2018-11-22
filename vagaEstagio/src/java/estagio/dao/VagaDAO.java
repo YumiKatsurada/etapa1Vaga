@@ -8,7 +8,9 @@ package estagio.dao;
 import estagio.beans.Categoria;
 import estagio.beans.Requisito;
 import estagio.beans.Vaga;
+import estagio.beans.VagaRequisito;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,37 +19,43 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author yumi
  */
+@Path("vaga")
 public class VagaDAO {
     private final static String CRIAR_VAGA_SQL = "insert into vaga"
             + " (title, city, state, zipcode, hirer, description, salary, category)"
             + " values (?, ?, ?, ?, ?, ?, ?, ?)";
 
     private final static String BUSCAR_VAGA_SQL = "select"
-            + " v.idVaga, v.title as vaga, v.city, v.state, v.zipcode, v.hirer, v.description, v.salary, category, c.title as categoria"
+            + " v.idVaga, v.title as vaga, v.city, v.state, v.zipcode, v.hider, v.description, v.salary, category, c.title as categoria"
             + " from vaga v inner join categoria c on v.category = c.idCategoria"
-            + " where idVaga=?";
+            ;
     
     private final static String LISTAR_VAGAS_SQL = "select"
-            + " v.idVaga, v.title as vaga, v.city, v.state, v.zipcode, v.hirer, v.description, v.salary, category, c.title as categoria"
+            + " v.idVaga, v.title as vaga, v.city, v.state, v.zipcode, v.hider, v.description, v.salary, category, c.title as categoria"
             + " from vaga v inner join categoria c on v.category = c.idCategoria";
     
+    private final static String LISTAR_VAGASREQ_SQL = "select"
+            + " r.title as reqTitle"
+            + " from vagarequisito vr inner join vaga v on v.idVaga = vr.vaga, vagarequisito vr inner join requisito r on r.idRequisito = vr.requisito"
+            + "where vaga=?";
     
     
-    DataSource dataSource;
-
-
-    public VagaDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    
+    
+    String con = "jdbc:derby://localhost:1527/estagio", user = "yumi", password ="yumi";
     
     
     public Vaga gravarVaga(Vaga v) throws SQLException, NamingException {
-        try (Connection con = dataSource.getConnection();
+        try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/estagio", "yumi", "yumi");
             PreparedStatement ps = con.prepareStatement(CRIAR_VAGA_SQL, Statement.RETURN_GENERATED_KEYS);) {
             //title, city, state, zipcode, hirer, description, salary, category
             ps.setString(1, v.getTitle());
@@ -70,12 +78,14 @@ public class VagaDAO {
     }
     
     
-
-    public Vaga buscarVaga(int id) throws SQLException, NamingException {
-        try (Connection con = dataSource.getConnection();
-                PreparedStatement ps = con.prepareStatement(BUSCAR_VAGA_SQL)) {
+    @GET
+    @Path("/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Vaga buscarVaga() throws SQLException, NamingException {
+        try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/estagio", "yumi", "yumi");
+            PreparedStatement ps = con.prepareStatement(BUSCAR_VAGA_SQL)) {
             //v.idVaga, v.title, v.city, v.state, v.zipcode, v.hirer, v.description, v.salary, c.title
-            ps.setInt(1, id);
+            //ps.setInt(1, id);
 
             try (ResultSet rs = ps.executeQuery()) {
                 rs.next();
@@ -97,11 +107,34 @@ public class VagaDAO {
         }
     }
     
+    @GET
+    @Path("/get")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<VagaRequisito> listarRequisitoVaga(int vaga) throws SQLException, NamingException {
+        List<VagaRequisito> ret = new ArrayList<>();
+        try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/estagio", "yumi", "yumi");
+                PreparedStatement ps = con.prepareStatement(LISTAR_VAGASREQ_SQL)) {
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    VagaRequisito vr = new VagaRequisito();
+                    Requisito r = new Requisito();
+                    r.setTitle(rs.getString("reqTitle"));
+                    vr.setRequisito(r);
+                    ret.add(vr);
+                }
+            }
+        }
+        return ret;
+      }
     
     
+    @GET
+    @Path("/list")
+    @Produces(MediaType.APPLICATION_JSON)
     public List<Vaga> listarTodasVagas() throws SQLException, NamingException {
         List<Vaga> ret = new ArrayList<>();
-        try (Connection con = dataSource.getConnection();
+        try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/estagio", "yumi", "yumi");
                 PreparedStatement ps = con.prepareStatement(LISTAR_VAGAS_SQL)) {
 
 

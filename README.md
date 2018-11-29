@@ -52,4 +52,4 @@ CONSTRAINT primary_key PRIMARY KEY (idCategoria)
 8. http://localhost:8080/vagaEstagio/webresources/vaga/get -> pega uma vaga
 9. http://localhost:8080/vagaEstagio/webresources/vaga/list -> lista todas as vagas
 
-10.Pasta da /vaga-frontend executar pelo terminal npm start.
+10.Pasta da front/vaga-frontend executar pelo terminal npm start.

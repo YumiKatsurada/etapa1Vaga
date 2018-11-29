@@ -52,7 +52,7 @@ public class CategoriaDAO {
     }
 
     @GET
-    @Path("/get")
+    @Path("/categoria")
     @Produces(MediaType.APPLICATION_JSON)
     public Categoria buscarCategoria() throws SQLException, NamingException {
         try (Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/estagio", "yumi", "yumi");

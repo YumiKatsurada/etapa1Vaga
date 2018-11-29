@@ -5,12 +5,16 @@
  */
 package estagio.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author yumi
  */
 //
-public class Categoria {
+public class Categoria implements Serializable{
+    
+    
     private
         String title;
         int id; 

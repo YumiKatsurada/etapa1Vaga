@@ -5,11 +5,13 @@
  */
 package estagio.beans;
 
+import java.io.Serializable;
+
 /**
  *
  * @author yumi
  */
-public class VagaRequisito {
+public class VagaRequisito implements Serializable{
     private
         Vaga vaga;
         Requisito requisito;

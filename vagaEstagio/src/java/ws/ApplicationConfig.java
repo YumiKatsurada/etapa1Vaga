@@ -31,6 +31,8 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(estagio.dao.CategoriaDAO.class);
         resources.add(estagio.dao.VagaDAO.class);
+        resources.add(ws.CorsResponseFilter.class);
+
     }
     
 }

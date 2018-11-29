@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/yumi/NetBeansProjects/vagaEstagio/src/java/estagio/beans/Vaga.java</file>
+            <file>file:/home/yumi/NetBeansProjects/vagaEstagio/src/java/estagio/beans/VagaRequisito.java</file>
+            <file>file:/home/yumi/NetBeansProjects/vagaEstagio/web/WEB-INF/glassfish-resources.xml</file>
+            <file>file:/home/yumi/NetBeansProjects/vagaEstagio/src/java/estagio/dao/CategoriaDAO.java</file>
             <file>file:/home/yumi/NetBeansProjects/vagaEstagio/src/java/estagio/dao/VagaDAO.java</file>
+            <file>file:/home/yumi/NetBeansProjects/vagaEstagio/src/java/ws/CorsResponseFilter.java</file>
+            <file>file:/home/yumi/NetBeansProjects/vagaEstagio/src/java/ws/ApplicationConfig.java</file>
+            <file>file:/home/yumi/NetBeansProjects/vagaEstagio/web/WEB-INF/glassfish-web.xml</file>
         </group>
     </open-files>
 </project-private>

@@ -5,6 +5,7 @@
  */
 package estagio.beans;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,12 +13,21 @@ import java.util.List;
  * @author yumi
  */
 //Classe referente a vaga de estagio
-public class Vaga {
+public class Vaga implements Serializable{
     private 
         String title, city, state, zipcode, hirer, description;
         float salary;
         Categoria category;
         int id;
+        Requisito[] requisitos;
+
+    public Requisito[] getRequisitos() {
+        return requisitos;
+    }
+
+    public void setRequisitos(Requisito[] requisitos) {
+        this.requisitos = requisitos;
+    }
     
     public int getId() {
         return id;

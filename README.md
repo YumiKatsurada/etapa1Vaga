@@ -4,6 +4,7 @@ Configurando ambiente:
 -Java 8
 -Glassfish 5
 -db-derby-10.14.2.0-bin
+-Node.js 10.14.0
 
 1) Arquivos .jar derby copiados e colados em Glassfish/lib
 2) Criar novo banco "estagio" e conectar 
@@ -50,4 +51,5 @@ CONSTRAINT primary_key PRIMARY KEY (idCategoria)
 7. Executar projeto
 8. http://localhost:8080/vagaEstagio/webresources/vaga/get -> pega uma vaga
 9. http://localhost:8080/vagaEstagio/webresources/vaga/list -> lista todas as vagas
-  
+
+10.Pasta da /vaga-frontend executar pelo terminal npm start.
